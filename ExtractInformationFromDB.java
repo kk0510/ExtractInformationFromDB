@@ -27,19 +27,13 @@ public class ExtractInformationFromDB{
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wikipediaontology20111107","root","root");
 		st = conn.createStatement();
 		std = conn.createStatement();
-		rs = st.executeQuery("select * from propertytriple");
+		rs = st.executeQuery("select * from instance_all");
 
 		while(rs.next()){
-			hits.add(rs.getString("INSTANCE"));
+			hits.add(rs.getString("instance"));
 		}
-		for(Iterator itr = hits.iterator();itr.hasNext();){
-			count = 0;
-			rsd = std.executeQuery("select * from propertytriple where INSTANCE='" +itr.next().toString()  +"'");
-			while(rsd.next()){
-				count++;
-			}
-			System.out.println(count);
-		}
+		System.out.println(hits.size());
+		
 		rs.close();
 		st.close();
 		conn.close();
